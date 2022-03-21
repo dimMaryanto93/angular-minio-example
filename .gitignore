@@ -14,7 +14,7 @@
 chrome-profiler-events*.json
 
 # IDEs and editors
-/.idea
+.idea
 .project
 .classpath
 .c9/
@@ -24,22 +24,18 @@ chrome-profiler-events*.json
 
 # IDE - VSCode
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 .history/*
 
 # misc
-/.angular/cache
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
+.angular/cache
+.sass-cache
+connect.lock
+coverage
+libpeerconnection.log
 npm-debug.log
 yarn-error.log
 testem.log
-/typings
+typings
 
 # System Files
 .DS_Store
