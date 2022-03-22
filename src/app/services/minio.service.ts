@@ -1,27 +1,26 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
-import * as AWS from "aws-sdk"
+import * as AWS from 'aws-sdk';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MinioService {
 
-  private bucketName: string;
-  private endpoint: string;
-  private port: number;
-  private useSsl: boolean;
-  private accessKey: string;
-  private secretKey: string;
+  private _bucketName: string;
+  private _endpoint: string;
+  private _port: number;
+  private _useSsl: boolean;
+  private _accessKey: string;
+  private _secretKey: string;
 
   constructor() {
-    this.bucketName = environment.minio_s3_bucket_name;
-    this.endpoint = environment.minio_s3_endpoint;
-    this.port = +environment.minio_s3_port;
-    this.useSsl = environment.minio_s3_use_ssl;
-    this.accessKey = environment.minio_s3_access_key;
-    this.secretKey = environment.minio_s3_secret_key;
-
+    this._bucketName = environment.minio_s3_bucket_name;
+    this._endpoint = environment.minio_s3_endpoint;
+    this._port = +environment.minio_s3_port;
+    this._useSsl = environment.minio_s3_use_ssl;
+    this._accessKey = environment.minio_s3_access_key;
+    this._secretKey = environment.minio_s3_secret_key;
   }
 
   public getMetadata() {
@@ -30,13 +29,22 @@ export class MinioService {
     }
   }
 
-  public getMinioClient() {
+  private getMinioClient() {
     return new AWS.S3({
-      accessKeyId: this.accessKey,
-      secretAccessKey: this.secretKey,
-      endpoint: `http://${this.endpoint}:${this.port}`,
+      accessKeyId: this._accessKey,
+      secretAccessKey: this._secretKey,
+      endpoint: `${this._endpoint}:${this._port}`,
       s3ForcePathStyle: true,
       signatureVersion: 'v4'
+    })
+  }
+
+  public getBucketList() {
+    let minioClient = this.getMinioClient();
+    return minioClient.listBuckets((err, data) => {
+      if (err) console.error(err, err.stack);
+      else
+        console.log('bucket list:', data);
     })
   }
 

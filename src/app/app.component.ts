@@ -9,12 +9,8 @@ import {MinioService} from "./services/minio.service";
 export class AppComponent implements OnInit {
 
   ngOnInit(): void {
-    let minioClient = this._minioService.getMinioClient();
-    minioClient.listBuckets((err, data) => {
-      if (err) return console.log('error bucket', err)
-
-      console.log('list bucket: ', data);
-    })
+    let minioClient = this._minioService.getBucketList();
+    console.log('list bucket: ', minioClient);
   }
 
   constructor(private _minioService: MinioService) {
