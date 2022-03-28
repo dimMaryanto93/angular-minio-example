@@ -8,11 +8,11 @@ import * as AWS from 'aws-sdk';
 export class MinioService {
 
   private _bucketName: string;
-  private _endpoint: string;
-  private _port: number;
+  private readonly _endpoint: string;
+  private readonly _port: number;
   private _useSsl: boolean;
-  private _accessKey: string;
-  private _secretKey: string;
+  private readonly _accessKey: string;
+  private readonly _secretKey: string;
 
   constructor() {
     this._bucketName = environment.minio_s3_bucket_name;
@@ -35,7 +35,8 @@ export class MinioService {
       secretAccessKey: this._secretKey,
       endpoint: `${this._endpoint}:${this._port}`,
       s3ForcePathStyle: true,
-      signatureVersion: 'v4'
+      signatureVersion: 'v4',
+      s3BucketEndpoint: true
     })
   }
 
